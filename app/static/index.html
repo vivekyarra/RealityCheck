@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RealityCheck compiles what you were promised, observes what happened, and closes the gap.">
+  <title>RealityCheck - Reality should match the agreement</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231e5948'/%3E%3Cpath d='M17 33l10 10 21-23' fill='none' stroke='white' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span></span><span></span></div>
+        <div><strong>RealityCheck</strong><small>Expectation ledger</small></div>
+      </div>
+      <nav>
+        <a class="nav-item active" href="#overview"><span class="nav-icon">⌂</span>Overview</a>
+        <a class="nav-item" href="#case-workspace"><span class="nav-icon">≠</span>Reality diffs <span class="count">1</span></a>
+        <a class="nav-item" href="#timeline"><span class="nav-icon">↻</span>Under resolution</a>
+        <a class="nav-item" href="#evidence"><span class="nav-icon">▱</span>Evidence vault</a>
+        <a class="nav-item" href="#agents"><span class="nav-icon">✦</span>Agent fleet</a>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="trust-card">
+          <div class="trust-row"><span class="pulse-dot"></span><strong>Guardian active</strong></div>
+          <p>Approval enforced</p>
+        </div>
+        <a class="nav-item" href="/api/docs"><span class="nav-icon">?</span>API reference</a>
+      </div>
+    </aside>
+
+    <main id="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="menuButton" aria-label="Toggle navigation">☰</button>
+        <div>
+          <p class="eyebrow">THURSDAY, AUGUST 20</p>
+          <h1>Good evening, Vivek.</h1>
+          <p class="subhead">1 case ready · evidence attached</p>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" id="resetButton" title="Reset demo" aria-label="Reset demo">↺</button>
+          <div class="mode-pill"><span class="pulse-dot"></span><span id="runtimeMode">Checking runtime</span></div>
+          <div class="avatar" aria-label="User profile">VY</div>
+        </div>
+      </header>
+
+      <section id="overview" class="metrics-grid" aria-label="Outcome summary">
+        <article class="metric-card primary">
+          <div><span class="metric-label">Protected value</span><strong id="protectedValue">₹6,338</strong></div>
+          <span class="metric-trend">+ ₹350 identified</span>
+          <p>Across 4 active contracts</p>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Active expectations</span><div class="metric-row"><strong>4</strong><span class="mini-ring">4</span></div>
+          <p id="activeCaption">3 on track · 1 awaiting observation</p>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Recovered</span><div class="metric-row"><strong id="recoveredMetric">₹0</strong><span class="status-icon success">✓</span></div>
+          <p id="recoveredCaption">Evidence required to close</p>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Your effort</span><div class="metric-row"><strong id="effortMetric">0 min</strong><span class="status-icon">◎</span></div>
+          <p>0 searches · 0 follow-ups</p>
+        </article>
+      </section>
+
+      <section class="attention-banner" id="attentionBanner" aria-live="polite">
+        <div class="attention-icon">!</div>
+        <div><strong id="attentionTitle">FiberMax bill ready</strong><p id="attentionCopy">Agreement captured · invoice queued</p></div>
+        <span class="severity" id="severityBadge">WATCHING</span>
+      </section>
+
+      <section id="case-workspace" class="workspace-grid">
+        <article class="panel case-panel">
+          <div class="panel-head">
+            <div><p class="eyebrow">ACTIVE CASE · FIBERMAX</p><h2>Installation charge reconciliation</h2></div>
+            <span id="caseStatus" class="status-badge">Captured</span>
+          </div>
+
+          <div class="pipeline" aria-label="Case progress">
+            <div class="stage done" data-stage="captured"><span>1</span><strong>Expectation</strong><small>Captured</small></div>
+            <i></i>
+            <div class="stage" data-stage="mismatch"><span>2</span><strong>Observation</strong><small>Waiting</small></div>
+            <i></i>
+            <div class="stage" data-stage="monitoring"><span>3</span><strong>Resolution</strong><small>Queued</small></div>
+            <i></i>
+            <div class="stage" data-stage="recovered"><span>4</span><strong>Verified</strong><small>Open</small></div>
+          </div>
+
+          <div class="agreement-summary">
+            <div class="merchant-logo">F</div>
+            <div><span>FiberMax Home Internet</span><strong>₹499 / month</strong><small>Fixed for 12 months · installation free</small></div>
+            <button class="text-button" id="showEvidence">View agreement ↗</button>
+          </div>
+
+          <div id="diffArea" class="diff-area pre-observation">
+            <div class="diff-column expected">
+              <div class="column-label"><span></span>EXPECTED</div>
+              <strong>₹499</strong><small>monthly plan</small>
+              <div class="line-item"><span>Installation</span><b>FREE</b></div>
+              <div class="evidence-chip">✓ Welcome email, Aug 12</div>
+            </div>
+            <div class="diff-connector"><span>vs</span></div>
+            <div class="diff-column actual">
+              <div class="column-label"><span></span>ACTUAL</div>
+              <strong id="actualAmount">Awaiting bill</strong><small id="actualLabel">no observation yet</small>
+              <div class="line-item"><span>Installation</span><b id="installationActual">—</b></div>
+              <div class="evidence-chip muted" id="billEvidence">Waiting for evidence</div>
+            </div>
+            <div class="delta-card" id="deltaCard">
+              <span>REALITY DIFF</span><strong id="deltaAmount">—</strong><small id="deltaClassification">No comparison yet</small>
+            </div>
+          </div>
+
+          <div class="judge-note" id="judgeNote" hidden>
+            <div class="agent-orb">✦</div>
+            <div><div class="note-title"><strong>Judge Agent</strong><span>99% confidence</span></div><p><mark>Free installation</mark> promised · ₹350 charged · no offsetting credit</p></div>
+          </div>
+
+          <div class="approval-box" id="approvalBox" hidden>
+            <div><span class="lock-icon">⌁</span><div><strong>Approve provider contact</strong><p>Scope: this case · evidence only · one message</p></div></div>
+            <label><input type="checkbox" id="approvalCheck"> I approve this one scoped provider contact</label>
+          </div>
+
+          <div class="case-actions">
+            <button class="secondary-button" id="secondaryAction">Inspect evidence</button>
+            <button class="primary-button" id="advanceButton">Observe next bill <span>→</span></button>
+          </div>
+          <p class="action-hint" id="actionHint">Observe · compare · judge</p>
+        </article>
+
+        <aside class="panel evidence-panel" id="evidence">
+          <div class="panel-head compact"><div><p class="eyebrow">EVIDENCE VAULT</p><h2>Source proof</h2></div><span class="verified-badge">✓ HASHED</span></div>
+          <div class="document-card active">
+            <div class="doc-icon">@</div><div><strong>FiberMax welcome email</strong><small>Captured Aug 12 · SHA-256 verified</small></div><span>✓</span>
+          </div>
+          <blockquote>
+            “Your plan is fixed at <mark>₹499/month for 12 months</mark>. <mark>Installation is completely free.</mark>”
+            <cite>Matched passage · extraction confidence 98%</cite>
+          </blockquote>
+          <div class="document-card" id="billDocument" hidden>
+            <div class="doc-icon bill">▤</div><div><strong>Invoice FM-2081</strong><small>Observed today · SHA-256 verified</small></div><span>!</span>
+          </div>
+          <div class="document-card" id="replyDocument" hidden>
+            <div class="doc-icon reply">↩</div><div><strong>Provider response</strong><small>₹350 credit promised · due in 48h</small></div><span>↻</span>
+          </div>
+          <div class="document-card" id="creditDocument" hidden>
+            <div class="doc-icon credit">✓</div><div><strong>Adjustment notice</strong><small>₹350 credit verified</small></div><span>✓</span>
+          </div>
+          <div class="trust-foot"><span>Evidence-bound</span><span>PII minimized</span><span>Hash-chained audit</span></div>
+        </aside>
+      </section>
+
+      <section class="lower-grid">
+        <article class="panel timeline-panel" id="timeline">
+          <div class="panel-head compact"><div><p class="eyebrow">CASE TIMELINE</p><h2>Agent activity</h2></div><span id="eventCount">2 events</span></div>
+          <ol class="timeline" id="timelineList"></ol>
+        </article>
+        <article class="panel agents-panel" id="agents">
+          <div class="panel-head compact"><div><p class="eyebrow">GOOGLE ADK FLEET</p><h2>Specialist agents</h2></div><span class="live-badge"><i></i>READY</span></div>
+          <div class="agent-grid" id="agentGrid"></div>
+          <div class="stack-strip"><span>Gemini 3.5 Flash</span><span>Google ADK</span><span>Cloud Run</span><span>Firestore</span><span>Pub/Sub</span></div>
+        </article>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

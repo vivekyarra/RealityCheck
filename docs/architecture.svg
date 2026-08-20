@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">RealityCheck architecture</title>
+  <desc id="desc">Consumer evidence enters a Cloud Run API and Google ADK agent fleet, is persisted in Firestore, scheduled with Pub Sub and Cloud Scheduler, and exits through a permission-gated resolution tool.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1"><stop stop-color="#f6f5ef"/><stop offset="1" stop-color="#edf3ef"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#17352c" flood-opacity=".10"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#497466"/></marker>
+    <style>
+      .title{font:700 42px Inter,Arial,sans-serif;fill:#14211d}.sub{font:400 18px Inter,Arial,sans-serif;fill:#69736e}.kicker{font:700 12px Inter,Arial,sans-serif;letter-spacing:2px;fill:#307d66}.box{fill:#fffefa;stroke:#d7ddd8;stroke-width:2;filter:url(#shadow)}.boxTitle{font:700 18px Inter,Arial,sans-serif;fill:#18352c}.body{font:400 14px Inter,Arial,sans-serif;fill:#68736e}.chip{fill:#e8f1ec;stroke:#bdd5c9}.chipText{font:700 11px Inter,Arial,sans-serif;fill:#24604e}.line{stroke:#497466;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke:#8ba79b;stroke-width:2;stroke-dasharray:8 7;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <text x="90" y="80" class="kicker">GOOGLE CLOUD · AGENTIC TASKMASTER</text>
+  <text x="90" y="130" class="title">RealityCheck system architecture</text>
+  <text x="90" y="165" class="sub">Evidence in. Verified reality out. Every action passes through a permission boundary.</text>
+
+  <rect x="90" y="245" rx="18" width="250" height="190" class="box"/>
+  <text x="120" y="285" class="boxTitle">Connected evidence</text>
+  <text x="120" y="320" class="body">Emails · receipts · PDFs</text><text x="120" y="345" class="body">Bills · screenshots · replies</text>
+  <rect x="120" y="375" rx="16" width="92" height="28" class="chip"/><text x="139" y="394" class="chipText">USER-BOUND</text>
+
+  <rect x="425" y="215" rx="18" width="330" height="250" class="box"/>
+  <text x="455" y="255" class="boxTitle">Cloud Run API + dashboard</text>
+  <text x="455" y="287" class="body">Secure ingestion and case state machine</text>
+  <text x="455" y="330" class="chipText">Expectation Contract</text><text x="455" y="360" class="chipText">Actual State</text><text x="455" y="390" class="chipText">Reality Diff</text><text x="455" y="420" class="chipText">Audit Trail</text>
+
+  <rect x="850" y="205" rx="18" width="480" height="270" class="box"/>
+  <text x="880" y="245" class="boxTitle">Google ADK specialist fleet</text>
+  <g class="body"><text x="880" y="285">Expectation</text><text x="1040" y="285">Observation</text><text x="1190" y="285">Judge</text><text x="880" y="330">Resolution</text><text x="1040" y="330">OWED</text><text x="1190" y="330">Guardian</text><text x="880" y="375">Outcome</text></g>
+  <rect x="880" y="405" rx="16" width="185" height="30" class="chip"/><text x="910" y="425" class="chipText">GEMINI 3.5 FLASH</text>
+  <rect x="1080" y="405" rx="16" width="190" height="30" class="chip"/><text x="1112" y="425" class="chipText">GEN AI SDK</text>
+
+  <rect x="425" y="590" rx="18" width="285" height="170" class="box"/>
+  <text x="455" y="630" class="boxTitle">Cloud Firestore</text><text x="455" y="665" class="body">Cross-session cases</text><text x="455" y="690" class="body">Obligations · evidence refs</text><text x="455" y="715" class="body">Hash-chained action history</text>
+
+  <rect x="805" y="590" rx="18" width="285" height="170" class="box"/>
+  <text x="835" y="630" class="boxTitle">Pub/Sub + Scheduler</text><text x="835" y="665" class="body">Deadline wake-ups</text><text x="835" y="690" class="body">Async observation checks</text><text x="835" y="715" class="body">Retry-safe task delivery</text>
+
+  <rect x="1190" y="565" rx="18" width="320" height="220" fill="#193a30" filter="url(#shadow)"/>
+  <text x="1220" y="610" style="font:700 18px Inter,Arial;fill:white">Permission-gated tools</text><text x="1220" y="648" style="font:400 14px Inter,Arial;fill:#bfd8cc">Draft · send · escalate</text><text x="1220" y="675" style="font:400 14px Inter,Arial;fill:#bfd8cc">Provider/API connectors</text>
+  <rect x="1220" y="710" rx="16" width="235" height="34" fill="#315f50"/><text x="1247" y="732" style="font:700 11px Inter,Arial;fill:#fff">GUARDIAN MUST AUTHORIZE</text>
+
+  <path d="M340 340 H425" class="line"/><path d="M755 340 H850" class="line"/><path d="M590 465 V590" class="line"/><path d="M950 475 V590" class="dash"/><path d="M710 675 H805" class="dash"/><path d="M1090 675 H1190" class="line"/><path d="M1330 475 V565" class="line"/>
+  <text x="90" y="840" class="kicker">TRUST PRINCIPLE</text><text x="90" y="870" class="sub">The case closes only when new evidence proves that the correction actually happened.</text>
+</svg>
