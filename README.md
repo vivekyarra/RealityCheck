@@ -11,7 +11,7 @@
 ![Google ADK](https://img.shields.io/badge/Google-ADK-4285F4)
 ![Cloud Run](https://img.shields.io/badge/Google_Cloud-Cloud_Run-4285F4)
 
-[Live demo](#run-locally) · [Architecture](docs/ARCHITECTURE.md) · [4-minute demo](submission/DEMO_VIDEO_SCRIPT.md) · [Devpost copy](submission/DEVPOST_SUBMISSION.md)
+[Live demo](https://realitycheck-agent.vercel.app) · [Architecture](docs/ARCHITECTURE.md) · [4-minute demo](submission/DEMO_VIDEO_SCRIPT.md) · [Devpost copy](submission/DEVPOST_SUBMISSION.md)
 
 </div>
 
@@ -81,6 +81,11 @@ Truth labeling is a product feature, not a footnote.
 
 ## Run locally
 
+The public judge demo is available at <https://realitycheck-agent.vercel.app>. It runs the
+same complete, permission-gated workflow in an honestly labeled deterministic sandbox. The
+competition deployment target remains Cloud Run + Firestore; Google Cloud proof must not be
+claimed until a billing-enabled project is available and the Cloud Run path is verified.
+
 ### Prerequisites
 
 - Python 3.11+
@@ -126,7 +131,7 @@ docker run --rm -p 8080:8080 realitycheck
 Invoke-RestMethod http://localhost:8080/api/health
 ```
 
-Current verified result: 10,000 adversarial lifecycles, 145,111 invariant checks, zero failures. The suite randomizes out-of-order actions, duplicate observations, repeated denials, duplicate approvals, premature verification, and repeated completion.
+Current verified result: 27 automated tests at 87%+ coverage plus 10,000 adversarial lifecycles, 145,111 invariant checks, and zero failures. The suite randomizes out-of-order actions, duplicate observations, repeated denials, duplicate approvals, premature verification, and repeated completion.
 
 ## Deploy to Google Cloud
 

@@ -30,9 +30,12 @@ logs/
 sourcefilesforreference/
 tmp/
 output/
+.devpost-hackathon-state.json
 
 # IDE / OS
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
+
+.vercel

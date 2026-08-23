@@ -21,7 +21,7 @@ jobs:
           cache: pip
       - run: pip install -r requirements-dev.txt
       - run: ruff check app tests scripts
-      - run: pytest --cov=app --cov-report=term-missing --cov-report=xml --cov-fail-under=85
+      - run: python -m pytest --cov=app --cov-report=term-missing --cov-report=xml --cov-fail-under=85
       - run: python scripts/stress_test.py --cases 2000
       - uses: actions/upload-artifact@v4
         with:
