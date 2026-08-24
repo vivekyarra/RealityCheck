@@ -33,7 +33,7 @@
 - [x] Coverage gate passes at 85% or better.
 - [x] 10,000-case adversarial stress run reports zero failures across 145,111 invariant checks.
 - [x] Docker image builds and health endpoint passes as a non-root runtime.
-- [x] GitHub Actions is green on `main` for release commit `15cc391`.
+- [x] GitHub Actions is green on `main` for the release branch.
 - [x] No secret is tracked (`git grep` and staged-file scan clean).
 - [x] `.env`, local DB, uploads, references, generated render files, and API key are absent from Git.
 - [x] Public repository description, homepage, and topics are set.
