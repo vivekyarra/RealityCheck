@@ -41,7 +41,7 @@ Verified on 24 August 2026 against the repository release candidate and public p
 - Gemini Developer API was called successfully using a local, uncommitted credential.
 - The provider boundary is the explicitly labeled fictional FiberMax sandbox. No real company contact is claimed.
 - Cloud Run source deployment was attempted in `argus-489918` and rejected at Artifact Registry because the linked billing account is closed. Cloud Run is not claimed as the public runtime.
-- The public judge demo at `https://realitycheck-agent.vercel.app` uses Vercel for stateless FastAPI compute and the default Google Cloud Firestore database in `argus-489918` for durable state. `/api/health` reports `store: firestore`, location `asia-south1`, and `ai_configured: false` until a free Gemini Developer API key is connected.
+- The public judge demo at `https://realitycheck-agent.vercel.app` uses Vercel for stateless FastAPI compute and the default Google Cloud Firestore database in `argus-489918` for durable state. On 25 August 2026, `/api/health` reported `store: firestore`, location `asia-south1`, and `ai_configured: true`; a public extraction returned `execution_mode: gemini-live` and the resulting case was read back from Firestore.
 - A live public lifecycle reached `recovered` with a ₹350 net difference, an approval-blocked action, one OWED obligation, and 12 audit events. Direct Firestore REST readback returned the identical case ID, `status: recovered`, and `recovered_amount: 350`.
 
 ## Reproduce
