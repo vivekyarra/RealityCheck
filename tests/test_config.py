@@ -12,3 +12,12 @@ def test_vercel_defaults_use_writable_ephemeral_storage(monkeypatch):
 
     assert settings.app_env == "production"
     assert settings.local_db_path == Path("/tmp/realitycheck/realitycheck.sqlite3")
+
+
+def test_service_account_secret_is_hidden_from_settings_repr():
+    settings = Settings(
+        _env_file=None,
+        google_service_account_json_b64="sensitive-credential",
+    )
+
+    assert "sensitive-credential" not in repr(settings)

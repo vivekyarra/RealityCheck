@@ -16,8 +16,9 @@ The autonomous agent that makes sure reality matches what you agreed to.
 
 https://realitycheck-agent.vercel.app
 
-This public judge URL runs the complete deterministic provider-sandbox workflow. It is separate
-from the required Google Cloud deployment proof and does not claim to be a Cloud Run runtime.
+This public judge URL runs the complete provider-sandbox workflow. FastAPI compute is hosted on
+Vercel; durable transactional backend state is live in Google Cloud Firestore in project
+`argus-489918`. The health endpoint exposes this topology and does not claim Cloud Run.
 
 ## Repository URL
 
@@ -45,7 +46,7 @@ RealityCheck gives every person their own expectation ledger and autonomous reco
 - Enforces L0-L4 permission tiers with an independent Guardian Agent.
 - Prepares and sends only routine user-approved corrective requests in the MVP.
 - Converts provider replies into new monitored OWED obligations.
-- Runs asynchronously with Firestore state and authenticated Cloud Scheduler wake-ups; Pub/Sub is provisioned for connector fan-out.
+- Persists cross-session cases and OWED obligations transactionally in Google Cloud Firestore; an authenticated task endpoint is implemented for scheduler integration.
 - Closes cases only after corrective evidence is observed.
 - Provides a responsive dashboard, evidence vault, timeline, and agent registry instead of a chat-first UI.
 - Degrades honestly to a labeled deterministic demo when model credentials are unavailable.
@@ -60,9 +61,9 @@ FiberMax promises ₹499/month for 12 months with free installation. Two months 
 - Google Agent Development Kit (ADK)
 - Google Gen AI SDK with typed structured output
 - Vertex AI
-- Google Cloud Run
-- Cloud Firestore
-- Pub/Sub and Cloud Scheduler
+- Cloud Firestore (live no-billing backend)
+- Google Cloud Run (implemented optional deployment path)
+- Pub/Sub and Cloud Scheduler (implemented optional deployment path)
 - Cloud Build and Artifact Registry
 - OpenTelemetry and Cloud Logging-compatible structured events
 - Python, FastAPI, Pydantic, SQLite local fallback
@@ -87,7 +88,7 @@ No bank, merchant, or private mailbox is accessed in the judging demo. FiberMax 
 
 ## How Google technology is essential
 
-Gemini 3.5 Flash compiles messy human agreements into structured terms and grounds each term in evidence. Google ADK expresses the specialist agent fleet and its orchestration boundary. Cloud Run makes the web/API runtime reproducible and scalable; Firestore keeps state across weeks; authenticated Cloud Scheduler ticks execute due OWED obligations without an open browser, while Pub/Sub is available for connector fan-out. Vertex AI lets production use service-account identity rather than shipping a model key.
+Gemini 3.5 Flash compiles messy human agreements into structured terms and grounds each term in evidence. Google ADK expresses the specialist agent fleet and its orchestration boundary. The public API writes every case transition to the default Cloud Firestore database in `argus-489918`, preserving state across sessions without requiring a billing account. A dedicated Firestore-only service identity keeps the Vercel compute boundary least-privileged. Cloud Run, Vertex AI, Pub/Sub, and Cloud Scheduler remain implemented upgrade paths rather than claimed live services.
 
 ## What makes it different
 
@@ -97,15 +98,17 @@ Most billing tools find anomalies. RealityCheck models the agreement first, reco
 
 The repository README contains copy-paste setup, verification, Docker, and Google Cloud deployment instructions. The deterministic complete demo works with no credential. Live Gemini extraction requires `GOOGLE_API_KEY` locally or Vertex AI/Application Default Credentials on Google Cloud.
 
-## Cloud deployment proof
+## Google Cloud proof
 
-**Still required before submission:** deploy to a billing-enabled Google Cloud project and include a demo-video shot of:
+In the demo video, show:
 
-- Cloud Run revision and URL
-- `/api/health` showing Firestore, Gemini 3.5 Flash, and AI configured
-- Firestore case document
-- successful Cloud Scheduler invocation
-- Cloud Logging request trace
+- `/api/health` reporting `store: firestore` and the `Google Cloud Firestore` backend in `argus-489918`
+- the Firestore database location (`asia-south1`)
+- the `realitycheck_cases` document changing as the public workflow advances
+- `ai_configured: true` only after a free Gemini Developer API key is connected
+
+State clearly that public compute is Vercel and durable backend state is Google Cloud Firestore.
+Do not call the public URL a Cloud Run deployment.
 
 ## Team
 

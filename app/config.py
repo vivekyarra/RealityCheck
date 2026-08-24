@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     google_cloud_project: str | None = None
     google_cloud_location: str = "global"
     firestore_database: str = "(default)"
+    google_service_account_json_b64: str | None = Field(default=None, repr=False)
     realitycheck_store: str = "local"
     provider_mode: str = "sandbox"
     tasks_shared_secret: str | None = Field(default=None, repr=False)

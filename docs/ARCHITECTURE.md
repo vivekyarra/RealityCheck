@@ -26,15 +26,15 @@ stateDiagram-v2
 2. A mismatch is not automatically wrongdoing. The Judge receives line-item explanations and preserves uncertainty.
 3. The Resolution Agent cannot bypass Guardian policy. L3/L4 actions always need stronger authorization.
 4. A provider response is not an outcome. The OWED Agent converts it into a new obligation and the Outcome Agent requires later proof.
-5. Local development uses SQLite for zero-friction reproducibility. Production switches to Firestore using the same typed case model and transactional mutations.
+5. Local development uses SQLite for zero-friction reproducibility. The public production runtime uses Firestore through a dedicated least-privilege service identity and the same typed transactional case model.
 6. Every audit event commits to the previous event hash. Rewriting an earlier event invalidates the chain.
 
 ## Deployment topology
 
-- One stateless Cloud Run service hosts the dashboard and API.
-- Firestore stores case documents and audit history.
-- Cloud Scheduler calls the authenticated task endpoint every 15 minutes; Pub/Sub is available for connector fan-out.
-- Vertex AI is accessed with the Cloud Run service identity. No model credential is baked into the image.
+- Vercel hosts the stateless FastAPI dashboard and API on its free tier.
+- Google Cloud Firestore in `argus-489918` stores case documents and audit history in `asia-south1` using its default-database free quota.
+- The authenticated task endpoint is implemented; Cloud Scheduler and Pub/Sub remain an optional billing-enabled topology rather than a live claim.
+- Gemini Developer API can be accessed with a free-tier API key stored as a platform secret. Vertex AI remains available for the optional Cloud Run topology.
 - Structured logs contain case/action identifiers but exclude full evidence text.
 
 ## Honest external boundary

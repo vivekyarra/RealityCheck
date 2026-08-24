@@ -120,6 +120,16 @@ def health(request: Request):
         "model": settings.gemini_model,
         "ai_configured": settings.ai_configured,
         "store": settings.realitycheck_store,
+        "cloud_backend": (
+            {
+                "provider": "Google Cloud Firestore",
+                "project": settings.google_cloud_project,
+                "database": settings.firestore_database,
+                "location": settings.google_cloud_location,
+            }
+            if settings.realitycheck_store.lower() == "firestore"
+            else None
+        ),
         "provider_mode": settings.provider_mode,
     }
 

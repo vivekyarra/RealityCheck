@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import json
 import sqlite3
 import time
 from abc import ABC, abstractmethod
@@ -134,15 +136,34 @@ class SQLiteCaseStore(CaseStore):
 
 
 class FirestoreCaseStore(CaseStore):
-    """Production persistence using Cloud Firestore and Application Default Credentials."""
+    """Production persistence using Cloud Firestore.
+
+    Cloud runtimes use Application Default Credentials. External runtimes such as
+    Vercel can receive a base64-encoded service-account document through a secret
+    environment variable, avoiding a credential file in the repository.
+    """
 
     def __init__(self, settings: Settings):
         from google.cloud import firestore
 
         self.firestore = firestore
+        client_options = {
+            "project": settings.google_cloud_project,
+            "database": settings.firestore_database,
+        }
+        if settings.google_service_account_json_b64:
+            from google.oauth2 import service_account
+
+            try:
+                encoded = settings.google_service_account_json_b64.encode("ascii")
+                service_account_info = json.loads(base64.b64decode(encoded, validate=True))
+            except (UnicodeEncodeError, ValueError, json.JSONDecodeError) as error:
+                raise ValueError("Invalid GOOGLE_SERVICE_ACCOUNT_JSON_B64 credential") from error
+            client_options["credentials"] = service_account.Credentials.from_service_account_info(
+                service_account_info
+            )
         self.client = firestore.Client(
-            project=settings.google_cloud_project,
-            database=settings.firestore_database,
+            **client_options,
         )
         self.collection = self.client.collection("realitycheck_cases")
 

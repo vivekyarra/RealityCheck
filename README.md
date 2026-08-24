@@ -9,7 +9,7 @@
 [![CI](https://github.com/vivekyarra/RealityCheck/actions/workflows/ci.yml/badge.svg)](https://github.com/vivekyarra/RealityCheck/actions/workflows/ci.yml)
 ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-1e5948)
 ![Google ADK](https://img.shields.io/badge/Google-ADK-4285F4)
-![Cloud Run](https://img.shields.io/badge/Google_Cloud-Cloud_Run-4285F4)
+![Cloud Firestore](https://img.shields.io/badge/Google_Cloud-Firestore-4285F4)
 
 [Live demo](https://realitycheck-agent.vercel.app) · [Architecture](docs/ARCHITECTURE.md) · [4-minute demo](submission/DEMO_VIDEO_SCRIPT.md) · [Devpost copy](submission/DEVPOST_SUBMISSION.md)
 
@@ -64,7 +64,7 @@ RealityCheck owns a long-running goal and state machine. It decides when to wait
 
 Truth labeling is a product feature, not a footnote.
 
-- **Real:** the FastAPI state machine, executable Google ADK fleet, Gemini structured extraction path, deterministic diff engine, evidence hashing/redaction, consent gate, OWED obligation, atomic SQLite/Firestore transitions, Cloud Run container, scheduler endpoint, hash-chained audit log, and tests.
+- **Real:** the FastAPI state machine, executable Google ADK fleet, Gemini structured extraction path, deterministic diff engine, evidence hashing/redaction, consent gate, OWED obligation, atomic SQLite/Firestore transitions, Firestore-backed public runtime, scheduler endpoint, hash-chained audit log, and tests.
 - **Live when configured:** Gemini 3.5 Flash through the Google Gen AI SDK or Vertex AI. The UI reports whether AI credentials are connected.
 - **Provider sandbox:** FiberMax is a fictional, deterministic connector used so a public judging demo never contacts or harasses a real company. The action packet, connector call, reply, obligation, and verification are real application behavior; only the external counterparty is sandboxed and labeled.
 
@@ -73,18 +73,18 @@ Truth labeling is a product feature, not a footnote.
 - **Gemini 3.5 Flash** - structured multimodal/semantic extraction and evidence-grounded reasoning.
 - **Google Agent Development Kit** - discoverable specialist fleet and orchestration boundary.
 - **Google Gen AI SDK** - typed structured-output execution used by the Expectation Agent.
-- **Cloud Run** - autoscaled application/API hosting with scale-to-zero.
-- **Cloud Firestore** - durable cross-session expectation, case, obligation, and audit state.
-- **Pub/Sub + Cloud Scheduler** - asynchronous wake-ups for future checks.
-- **Vertex AI / Application Default Credentials** - secretless production model access.
+- **Cloud Firestore** - live durable cross-session expectation, case, obligation, and audit state in `argus-489918`.
+- **Cloud Run** - implemented autoscaled deployment path for billing-enabled projects; not claimed as the public runtime.
+- **Pub/Sub + Cloud Scheduler** - implemented asynchronous deployment path for billing-enabled projects.
+- **Gemini Developer API / Vertex AI** - free API-key inference for the public runtime or service-identity inference on Cloud Run.
 - **Cloud Logging / OpenTelemetry** - structured request and agent-action telemetry.
 
 ## Run locally
 
-The public judge demo is available at <https://realitycheck-agent.vercel.app>. It runs the
-same complete, permission-gated workflow in an honestly labeled deterministic sandbox. The
-competition deployment target remains Cloud Run + Firestore; Google Cloud proof must not be
-claimed until a billing-enabled project is available and the Cloud Run path is verified.
+The public judge demo is available at <https://realitycheck-agent.vercel.app>. FastAPI compute
+runs on Vercel and durable transactional state runs in the default Cloud Firestore database in
+Google Cloud project `argus-489918` (`asia-south1`). The health endpoint exposes this split
+topology explicitly. The provider connector remains an honestly labeled deterministic sandbox.
 
 ### Prerequisites
 
@@ -131,9 +131,19 @@ docker run --rm -p 8080:8080 realitycheck
 Invoke-RestMethod http://localhost:8080/api/health
 ```
 
-Current verified result: 27 automated tests at 87%+ coverage plus 10,000 adversarial lifecycles, 145,111 invariant checks, and zero failures. The suite randomizes out-of-order actions, duplicate observations, repeated denials, duplicate approvals, premature verification, and repeated completion.
+Current verified result: 29 automated tests at 87%+ coverage plus 10,000 adversarial lifecycles, 145,111 invariant checks, and zero failures. The suite randomizes out-of-order actions, duplicate observations, repeated denials, duplicate approvals, premature verification, and repeated completion.
 
-## Deploy to Google Cloud
+## Deploy with Google Cloud Firestore and no billing account
+
+The public deployment uses Vercel for stateless FastAPI compute and Google Cloud Firestore for
+durable state. Firestore's default database has a documented no-cost quota and does not require
+a payment method. External runtimes authenticate with a dedicated `roles/datastore.user`
+service account stored as a platform secret; the credential is never committed.
+
+Set `REALITYCHECK_STORE=firestore`, `GOOGLE_CLOUD_PROJECT`, `FIRESTORE_DATABASE=(default)`, and
+the secret `GOOGLE_SERVICE_ACCOUNT_JSON_B64` in the host, then deploy normally.
+
+## Optional all-Google Cloud deployment
 
 The script enables the required APIs, creates a least-privilege runtime service account, creates Firestore when needed, and deploys the source to Cloud Run:
 
@@ -151,7 +161,9 @@ Then create the asynchronous 15-minute obligation tick:
   -TasksSecret "GENERATE_A_LONG_RANDOM_SECRET"
 ```
 
-Production uses Vertex AI and the Cloud Run service identity, so no Gemini API key is embedded in the image or repository. See [deployment details](docs/DEPLOYMENT.md).
+That optional topology uses Vertex AI and the Cloud Run service identity, so no Gemini API key
+is embedded in the image or repository. It requires an open Cloud Billing account. See
+[deployment details](docs/DEPLOYMENT.md).
 
 ## Safety model
 

@@ -1,6 +1,19 @@
-# Google Cloud deployment and proof
+# Deployment and Google Cloud proof
 
-## Services used
+## Live no-billing topology
+
+The public judge deployment uses Vercel for stateless FastAPI compute and the default Cloud
+Firestore database in `argus-489918` for durable backend state. The database is in
+`asia-south1` and uses Firestore's documented free quota without a billing account.
+
+The Vercel runtime receives only a base64-encoded credential for a dedicated
+`roles/datastore.user` service account. `/api/health` identifies the compute/storage split, and
+the strongest demo proof is to advance the public workflow while showing the matching
+`realitycheck_cases` document change in Firestore.
+
+## Optional all-Google Cloud topology
+
+### Services
 
 - Cloud Run
 - Cloud Firestore in Native mode
@@ -9,7 +22,7 @@
 - Cloud Scheduler
 - Cloud Build / Artifact Registry
 
-## Deploy
+### Deploy
 
 ```powershell
 gcloud auth login
@@ -25,7 +38,7 @@ Invoke-RestMethod "$url/api/health"
 Invoke-WebRequest "$url" -UseBasicParsing
 ```
 
-## Configure asynchronous checks
+### Configure asynchronous checks
 
 The scheduler script writes the task credential to Secret Manager, grants only the runtime identity access, mounts it into Cloud Run, and configures the matching scheduler header:
 
@@ -33,7 +46,7 @@ The scheduler script writes the task credential to Secret Manager, grants only t
 .\infra\scheduler.ps1 -ProjectId YOUR_PROJECT_ID -ServiceUrl $url -TasksSecret "LONG_RANDOM_SECRET"
 ```
 
-## Evidence to capture for the demo video
+### Evidence to capture for this optional topology
 
 1. Cloud Run service page showing the `realitycheck` revision and `.run.app` URL.
 2. The health endpoint showing `store: firestore`, `model: gemini-3.5-flash`, and `ai_configured: true`.

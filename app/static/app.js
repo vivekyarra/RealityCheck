@@ -162,10 +162,20 @@ async function reset() {
 
 async function init() {
   try {
+    const now = new Date();
+    $("#currentDate").textContent = now.toLocaleDateString("en-US", {
+      weekday: "long", month: "long", day: "numeric",
+    }).toUpperCase();
+    const hour = now.getHours();
+    const daypart = hour < 12 ? "morning" : hour < 17 ? "afternoon" : "evening";
+    $("#greeting").textContent = `Good ${daypart}, Vivek.`;
     const [health, demo, fleet] = await Promise.all([
       api("/api/health"), api("/api/demo/state"), api("/api/agents"),
     ]);
-    $("#runtimeMode").textContent = health.ai_configured ? `${health.model} · connected` : "Deterministic demo · AI ready";
+    const cloudState = health.store === "firestore" ? "Firestore live" : "Local state";
+    $("#runtimeMode").textContent = health.ai_configured
+      ? `${health.model} · ${cloudState}`
+      : `${cloudState} · AI ready`;
     const agentGrid = $("#agentGrid");
     fleet.agents.forEach((agent) => {
       const card = document.createElement("div");

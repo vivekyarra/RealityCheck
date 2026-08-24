@@ -1,13 +1,13 @@
 # Release verification report
 
-Verified on 20 August 2026 against the repository release candidate.
+Verified on 24 August 2026 against the repository release candidate and public production runtime.
 
 ## Release gates
 
 | Gate | Result | Evidence |
 |---|---:|---|
 | Static analysis | Pass | Ruff reports zero violations |
-| Automated tests | Pass | 27 tests, 87%+ statement coverage |
+| Automated tests | Pass | 29 tests, 88.24% statement coverage |
 | Adversarial lifecycle stress | Pass | 10,000 cases, 145,111 invariant checks, 0 failures |
 | Concurrent HTTP sessions | Pass | 100 parallel full lifecycles, 0 failures |
 | Duplicate/racing HTTP actions | Pass | 192 racing requests; 1 observation, 1 obligation, 1 recovery |
@@ -40,8 +40,9 @@ Verified on 20 August 2026 against the repository release candidate.
 
 - Gemini Developer API was called successfully using a local, uncommitted credential.
 - The provider boundary is the explicitly labeled fictional FiberMax sandbox. No real company contact is claimed.
-- Google Cloud deployment scripts are implemented and syntax-checked. A live deployment attempt authenticated successfully but Google rejected API activation because every accessible project currently has billing disabled. No hosted URL or Cloud deployment claim is made until billing is enabled.
-- A public deterministic judge demo is verified at `https://realitycheck-agent.vercel.app`; it is not presented as Google Cloud proof and reports `store: local` and `ai_configured: false` at `/api/health`.
+- Cloud Run source deployment was attempted in `argus-489918` and rejected at Artifact Registry because the linked billing account is closed. Cloud Run is not claimed as the public runtime.
+- The public judge demo at `https://realitycheck-agent.vercel.app` uses Vercel for stateless FastAPI compute and the default Google Cloud Firestore database in `argus-489918` for durable state. `/api/health` reports `store: firestore`, location `asia-south1`, and `ai_configured: false` until a free Gemini Developer API key is connected.
+- A live public lifecycle reached `recovered` with a ₹350 net difference, an approval-blocked action, one OWED obligation, and 12 audit events. Direct Firestore REST readback returned the identical case ID, `status: recovered`, and `recovered_amount: 350`.
 
 ## Reproduce
 

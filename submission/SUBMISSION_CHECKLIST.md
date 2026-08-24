@@ -6,11 +6,11 @@
 - [x] Gemini 3.5 Flash model name is explicit in code and deployment.
 - [x] Google ADK agent fleet is implemented.
 - [x] Google Gen AI SDK is used for typed structured extraction.
-- [x] Google Cloud infrastructure is implemented: Cloud Run + Firestore + Pub/Sub/Scheduler.
+- [x] Live Google Cloud infrastructure: default Cloud Firestore database in `argus-489918`; Cloud Run + Pub/Sub/Scheduler remain implemented optional paths.
 - [x] Complete workflow takes action beyond chat.
 - [x] Background obligation state survives sessions in Firestore.
 - [x] Safety permissions and evidence traceability are implemented.
-- [ ] Deploy to the participant's Google Cloud project and save proof.
+- [x] Public deployment writes verified against participant-owned Firestore in `argus-489918`.
 
 ## Required Devpost fields
 
@@ -41,11 +41,10 @@
 
 ## Demo proof gate
 
-- [ ] Cloud Run revision and URL visible.
-- [ ] `/api/health` reports `store: firestore`, `model: gemini-3.5-flash`, `ai_configured: true`.
+- [ ] `/api/health` reports `store: firestore`, project `argus-489918`, model `gemini-3.5-flash`, and truthful AI status.
 - [ ] Firestore case document visible.
-- [ ] Cloud Scheduler success visible.
-- [ ] Cloud Logging trace visible.
+- [ ] Firestore document visibly changes while the public workflow advances.
+- [ ] State that compute is Vercel and durable backend state is Google Cloud Firestore.
 - [ ] No secrets or personal account data visible.
 - [ ] Recovery is shown only after adjustment evidence.
 - [ ] Fictional FiberMax sandbox boundary is stated aloud and visible in health/runtime truth.

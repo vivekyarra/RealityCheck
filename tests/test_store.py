@@ -1,10 +1,14 @@
 import sqlite3
+import sys
+from base64 import b64encode
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import MagicMock
 
 from app.config import Settings
 from app.demo import create_demo_case, observe_bill, resolve, verify_credit
-from app.store import SQLiteCaseStore
+from app.store import FirestoreCaseStore, SQLiteCaseStore
 
 
 def initialize_store(path: str) -> int:
@@ -71,3 +75,32 @@ def test_multiple_worker_processes_can_boot_against_one_database(tmp_path):
     path = str(tmp_path / "multiworker.sqlite3")
     with ProcessPoolExecutor(max_workers=6) as pool:
         assert list(pool.map(initialize_store, [path] * 12)) == [0] * 12
+
+
+def test_firestore_store_uses_service_account_secret(monkeypatch):
+    credential_factory = MagicMock(return_value="scoped-credential")
+    firestore_client = MagicMock()
+    firestore_module = SimpleNamespace(Client=firestore_client)
+    service_account_module = SimpleNamespace(
+        Credentials=SimpleNamespace(from_service_account_info=credential_factory)
+    )
+    monkeypatch.setitem(sys.modules, "google.cloud.firestore", firestore_module)
+    monkeypatch.setitem(sys.modules, "google.oauth2.service_account", service_account_module)
+    secret = b64encode(b'{"type":"service_account","project_id":"argus-489918"}').decode()
+
+    FirestoreCaseStore(
+        Settings(
+            _env_file=None,
+            google_cloud_project="argus-489918",
+            google_service_account_json_b64=secret,
+        )
+    )
+
+    credential_factory.assert_called_once_with(
+        {"type": "service_account", "project_id": "argus-489918"}
+    )
+    firestore_client.assert_called_once_with(
+        project="argus-489918",
+        database="(default)",
+        credentials="scoped-credential",
+    )
