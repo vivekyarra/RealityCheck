@@ -11,7 +11,7 @@
 ![Google ADK](https://img.shields.io/badge/Google-ADK-4285F4)
 ![Cloud Firestore](https://img.shields.io/badge/Google_Cloud-Firestore-4285F4)
 
-[Live demo](https://realitycheck-agent.vercel.app) · [Architecture](docs/ARCHITECTURE.md) · [4-minute demo](submission/DEMO_VIDEO_SCRIPT.md) · [Devpost copy](submission/DEVPOST_SUBMISSION.md)
+[Live demo](https://realitycheck-agent.vercel.app) · [Architecture](docs/ARCHITECTURE.md) · [4-minute demo video](https://youtu.be/QK4VIIrkofk)
 
 </div>
 
@@ -65,7 +65,7 @@ RealityCheck owns a long-running goal and state machine. It decides when to wait
 Truth labeling is a product feature, not a footnote.
 
 - **Real:** the FastAPI state machine, executable Google ADK fleet, Gemini structured extraction path, deterministic diff engine, evidence hashing/redaction, consent gate, OWED obligation, atomic SQLite/Firestore transitions, Firestore-backed public runtime, scheduler endpoint, hash-chained audit log, and tests.
-- **Live when configured:** Gemini 3.5 Flash through the Google Gen AI SDK or Vertex AI. The UI reports whether AI credentials are connected.
+- **Live in production:** Gemini 3.5 Flash through the Google Gen AI SDK. The public health endpoint reports `ai_configured: true`; the UI exposes the connected model instead of hiding runtime status.
 - **Provider sandbox:** FiberMax is a fictional, deterministic connector used so a public judging demo never contacts or harasses a real company. The action packet, connector call, reply, obligation, and verification are real application behavior; only the external counterparty is sandboxed and labeled.
 
 ## Google technology
@@ -78,6 +78,18 @@ Truth labeling is a product feature, not a footnote.
 - **Pub/Sub + Cloud Scheduler** - implemented asynchronous deployment path for billing-enabled projects.
 - **Gemini Developer API / Vertex AI** - free API-key inference for the public runtime or service-identity inference on Cloud Run.
 - **Cloud Logging / OpenTelemetry** - structured request and agent-action telemetry.
+
+## Judge verification at a glance
+
+| Hackathon requirement | RealityCheck proof |
+|---|---|
+| Gemini 3.5 or newer | Gemini 3.5 Flash is live through the Google Gen AI SDK; `/api/health` exposes the configured model and AI status. |
+| Google agent framework | The executable Google ADK specialist fleet is visible in the dashboard and returned by `/api/agents`. |
+| Google Cloud service | The public workflow persists every transition to Cloud Firestore in `argus-489918`, `asia-south1`. |
+| Agent doing real work | The live path observes a bill, computes a ₹350 diff, enforces approval, creates an OWED obligation, and verifies the credit. |
+| Reproducibility | The setup and verification commands below run the app, tests, stress suite, and container. |
+| Architecture diagram | [`docs/architecture.png`](docs/architecture.png) shows Gemini, ADK, FastAPI, Firestore, the OWED lifecycle, and permission-gated tools. |
+| Public evidence | [Live product](https://realitycheck-agent.vercel.app) · [Public repository](https://github.com/vivekyarra/RealityCheck) · [Release v1.0.0](https://github.com/vivekyarra/RealityCheck/releases/tag/v1.0.0) |
 
 ## Run locally
 
@@ -193,7 +205,6 @@ RealityCheck/
 │   └── static/               # Judge-facing responsive dashboard
 ├── docs/                     # Architecture, deployment, evaluation, judge Q&A
 ├── infra/                    # Cloud Run, Firestore, Pub/Sub/Scheduler deployment
-├── submission/               # Devpost copy, demo script, bonus content, checklist
 ├── tests/                    # Workflow, API, extraction, guardrail, adversarial tests
 ├── .github/workflows/ci.yml  # Test, stress, and container smoke gates
 ├── Dockerfile
@@ -216,12 +227,9 @@ See the evidence-backed [test report](docs/TEST_REPORT.md) for clean-container, 
 
 ## Hackathon submission kit
 
-- [Devpost-ready project description](submission/DEVPOST_SUBMISSION.md)
-- [4-minute demo script and shot list](submission/DEMO_VIDEO_SCRIPT.md)
-- [Submission checklist](submission/SUBMISSION_CHECKLIST.md)
-- [AI-use disclosure](submission/AI_USE_DISCLOSURE.md)
-- [Public build article](submission/BLOG_POST.md)
-- [Social post](submission/SOCIAL_POST.md)
+- [Public 4-minute demo video](https://youtu.be/QK4VIIrkofk)
+- [Live judge demo](https://realitycheck-agent.vercel.app)
+- [Architecture diagram](docs/architecture.png)
 - [Judge Q&A](docs/JUDGE_QA.md)
 
 ## License
